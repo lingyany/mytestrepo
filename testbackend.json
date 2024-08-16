@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apimServiceName": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "backendId1": {
+            "type": "string",
+            "defaultValue": "my-backend-id1"
+        },
+        "backendUrl1": {
+            "type": "string",
+            "defaultValue": "https://my-backend-url.com"
+        },
+        "backendId2": {
+            "type": "string",
+            "defaultValue": "my-backend-id2"
+        },
+        "backendUrl2": {
+            "type": "string",
+            "defaultValue": "https://my-backend-url.com"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.ApiManagement/service/backends",
+            "apiVersion": "2023-09-01-preview",
+            "name": "[concat(parameters('apimServiceName'), '/', parameters('backendId1'))]",
+            "properties": {
+                "url": "[parameters('backendUrl1')]",
+                "protocol": "http",
+                "credentials": {
+                    "query": {},
+                    "header": {}
+                },
+                "tls": {
+                    "validateCertificateChain": true,
+                    "validateCertificateName": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.ApiManagement/service/backends",
+            "apiVersion": "2023-09-01-preview",
+            "name": "[concat(parameters('apimServiceName'), '/', parameters('backendId2'))]",
+            "properties": {
+                "url": "[parameters('backendUrl2')]",
+                "protocol": "http",
+                "credentials": {
+                    "query": {},
+                    "header": {}
+                },
+                "tls": {
+                    "validateCertificateChain": true,
+                    "validateCertificateName": true
+                }
+            }
+        }
+    ]
+}

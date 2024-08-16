@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apimServiceName": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "backendId1": {
+            "type": "string",
+            "defaultValue": "my-backend-id1"
+        },
+        "backendId2": {
+            "type": "string",
+            "defaultValue": "my-backend-id2"
+        },
+        "backendPoolName":{
+            "type": "string",
+            "defaultValue": "backend-pool-1"
+        },
+        "backendIdPrefix": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.ApiManagement/service/backends",
+            "apiVersion": "2023-09-01-preview",
+            "name": "[concat(parameters('apimServiceName'), '/', parameters('backendPoolName'))]",
+            "properties": {
+                "description": "Load balancer for multiple backends",
+                "type": "Pool",
+                "pool": {
+                    "services": [
+                        {
+                            "id": "[concat(parameters('backendIdPrefix), parameters('backendId1'))]",
+                            "priority": "1",
+                            "weight": "1"
+                        },
+                        {
+                            "id": "[concat(parameters('backendIdPrefix), parameters('backendId2'))]",
+                            "priority": "1",
+                            "weight": "1"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
