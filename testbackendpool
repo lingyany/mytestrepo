@@ -34,12 +34,12 @@
                 "pool": {
                     "services": [
                         {
-                            "id": "[concat(parameters('backendIdPrefix), parameters('backendId1'))]",
+                            "id": "[concat(parameters('backendIdPrefix'), parameters('backendId1'))]",
                             "priority": "1",
                             "weight": "1"
                         },
                         {
-                            "id": "[concat(parameters('backendIdPrefix), parameters('backendId2'))]",
+                            "id": "[concat(parameters('backendIdPrefix'), parameters('backendId2'))]",
                             "priority": "1",
                             "weight": "1"
                         }
